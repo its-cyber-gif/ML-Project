@@ -22,14 +22,17 @@ def competition_cost(c, flag, budget):
                     c)
 
 
-def decide(p, mu, eps, alpha=1.0, eps_scale=1.0, margin=0.0, budget_mult=1.0):
+def decide(p, mu, eps, alpha=1.0, eps_scale=1.0, margin=0.0, budget_mult=1.0, sigma=None):
     """Return flag, budget arrays.
 
     alpha       multiplies probabilities (calibration / prior adjustment)
     eps_scale   widens or narrows the residual distribution
     margin      extra cost an inspection must save before we flag
     budget_mult scales the optimal budget (kept at 1 unless CV says otherwise)
+    sigma       optional per-vehicle residual scale (heteroscedastic cost model);
+                then eps should be standardised residuals z = residual / sigma
     """
+    sig = np.ones(len(p)) if sigma is None else np.asarray(sigma)
     p = np.clip(alpha * p, 1e-9, 1 - 1e-9)
     e = np.sort(eps * eps_scale)
     # samples of C|fail per vehicle: shape (n, k)
@@ -37,7 +40,7 @@ def decide(p, mu, eps, alpha=1.0, eps_scale=1.0, margin=0.0, budget_mult=1.0):
     out_b = np.zeros(len(p))
     for s in range(0, len(p), 4000):
         sl = slice(s, s + 4000)
-        C = np.exp(mu[sl, None] + e[None, :])
+        C = np.exp(mu[sl, None] + sig[sl, None] * e[None, :])
         k = C.shape[1]
         ps = p[sl]
         u = 1 - (1 - TAU) / ps  # required quantile of C|fail
