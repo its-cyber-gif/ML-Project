@@ -31,3 +31,6 @@ versions scale risk up instead of normalising the shift away.
 - `logit_model.py`: logistic regression on log1p sensors (AUC 0.985) to extrapolate past the
   training range. Blending it into the ensemble raised OOF cost (0.845–0.863 vs 0.838), and it
   predicted the same test risk level as the trees, so it is not used.
+- `tune_lgb.py`: CV search over 10 LightGBM settings (leaves, trees, learning rate, column
+  sampling, regularisation, class weight). All within ±0.01 OOF cost of the baseline, which
+  is inside CV noise (±0.1), so the original settings are kept.
