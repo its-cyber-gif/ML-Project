@@ -27,6 +27,13 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v13 | v12 + heteroscedastic budgets (per-vehicle cost spread; CV pinball 24.3 vs 25.4, global budget 46.2) | 1715 | pending |
 | v14 | v13 with test probabilities bagged over 45 CV + 6 full-data models | 1692 | pending |
 | v15 | v14 with parts budgets ×0.6 (budget-level probe; pair with v11 ×1.25) | 1692 | pending |
+| v16 | v14, budgets ×0.8 (one-knob grid, `make_grid.py`) | 1692 | pending |
+| v17 | v14, budgets ×1.15 | 1692 | pending |
+| v18 | v14 policy, only 1450 inspections | 1450 | pending |
+| v19 | v14 policy, 1950 inspections | 1950 | pending |
+| v20 | v14 flags, homoscedastic budgets (tests the sigma model) | 1692 | pending |
+| v21 | v9 flags + v14 budgets (isolates the budget model) | 1674 | pending |
+| v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
