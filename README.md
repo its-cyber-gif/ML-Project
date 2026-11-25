@@ -38,3 +38,7 @@ versions scale risk up instead of normalising the shift away.
 - `tune_lgb.py`: CV search over 10 LightGBM settings (leaves, trees, learning rate, column
   sampling, regularisation, class weight). All within ±0.01 OOF cost of the baseline, which
   is inside CV noise (±0.1), so the original settings are kept.
+- `pseudo_test.py`: reweights training vehicles to look like the test depot (density ratio from
+  a domain classifier). It reaches a 1.9% failure rate vs EM's 3.5% for test and prefers risk ×1.5,
+  while the leaderboard kept improving up to ×6, so it cannot stand in for the leaderboard.
+  It agrees with CV that budgets ×0.8–1.0 are best (v15's ×0.6 is expected to be slightly worse).
