@@ -24,3 +24,8 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
+
+### Experiments that did not help
+- `logit_model.py`: logistic regression on log1p sensors (AUC 0.985) to extrapolate past the
+  training range. Blending it into the ensemble raised OOF cost (0.845–0.863 vs 0.838), and it
+  predicted the same test risk level as the trees, so it is not used.
