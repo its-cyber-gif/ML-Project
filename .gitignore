@@ -1,0 +1,7 @@
+.venv/
+data/
+oof/
+__pycache__/
+catboost_info/
+submission_quick.csv
+*.zip
