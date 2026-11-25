@@ -11,3 +11,15 @@ Cross-validated maintenance cost per vehicle: **0.838** (never inspecting: 3.49)
 4. `make_submission.py`: writes `submission_v5_ensemble.csv`.
 
 Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` followed by `python make_submission.py`.
+
+## Submission log (public leaderboard, total cost — lower is better)
+
+| Version | Change | Inspections | Public score |
+|---|---|---|---|
+| v5 | Test shift fixes + LGB/XGB/CatBoost ensemble + cost-optimal policy (risk ×1.5) | 1021 | 22329.34 |
+| v6 | v5 + quantile-matched test sensors | 754 | 33860.61 |
+| v7 | v5 with risk ×2.5 (test depot has more failures) | 1265 | 19770.97 |
+| v8 | v5 with risk ×4 | 1482 | pending |
+
+v6 showed that the heavier-usage test vehicles really do fail more, so later
+versions scale risk up instead of normalising the shift away.
