@@ -20,7 +20,9 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v6 | v5 + quantile-matched test sensors | 754 | 33860.61 |
 | v7 | v5 with risk ×2.5 (test depot has more failures) | 1265 | 19770.97 |
 | v8 | v5 with risk ×4 | 1482 | 18170.52 |
-| v9 | v5 with risk ×6 | 1674 | pending |
+| v9 | v5 with risk ×6 | 1674 | 17664.18 |
+| v10 | risk ×7 (quadratic fit of v7–v9 scores puts optimum near ×6.3–7) | 1754 | pending |
+| v11 | v10 with parts budgets ×1.25 | 1753 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
