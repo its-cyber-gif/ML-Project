@@ -26,6 +26,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v12 | EM prior-shift correction (label-free estimate: test failure rate 3.5% = 4.4× train), CV-tuned policy | 1715 | pending |
 | v13 | v12 + heteroscedastic budgets (per-vehicle cost spread; CV pinball 24.3 vs 25.4, global budget 46.2) | 1715 | pending |
 | v14 | v13 with test probabilities bagged over 45 CV + 6 full-data models | 1692 | pending |
+| v15 | v14 with parts budgets ×0.6 (budget-level probe; pair with v11 ×1.25) | 1692 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
