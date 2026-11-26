@@ -25,7 +25,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v11 | v10 with parts budgets ×1.25 | 1753 | pending |
 | v12 | EM prior-shift correction (label-free estimate: test failure rate 3.5% = 4.4× train), CV-tuned policy | 1715 | pending |
 | v13 | v12 + heteroscedastic budgets (per-vehicle cost spread; CV pinball 24.3 vs 25.4, global budget 46.2) | 1715 | pending |
-| v14 | v13 with test probabilities bagged over 45 CV + 6 full-data models | 1692 | pending |
+| v14 | v13 with test probabilities bagged over 45 CV + 6 full-data models | 1692 | 17,764.58 |
 | v15 | v14 with parts budgets ×0.6 (budget-level probe; pair with v11 ×1.25) | 1692 | pending |
 | v16 | v14, budgets ×0.8 (one-knob grid, `make_grid.py`) | 1692 | pending |
 | v17 | v14, budgets ×1.15 | 1692 | pending |
