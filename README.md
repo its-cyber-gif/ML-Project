@@ -38,6 +38,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v26 | v9 policy on 15 full-data classifiers (more bagging; 1663/1674 flags shared with v9) | 1676 | pending |
 | v27 | v9 flags, budgets ×0.7 (budget probe on the best flags) | 1674 | 18,293.22 |
 | v28 | v9 flags, budgets ×1.4 (not submitted: calibrated model predicts ~+700 worse) | 1674 | — |
+| v29 | v9 policy on an ensemble retrained with shape features from 5 more histogram groups (CV cost −3.3%) | 1663 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
