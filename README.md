@@ -45,6 +45,18 @@ versions scale risk up instead of normalising the shift away.
 
 ### Experiments that did not help
 
+- **Deep-dive checks (no leak or bug found)**:
+  - Row order / ids carry no signal (AUC 0.50); only 3 test rows duplicate a train row; `followup_days` is not
+    time-to-failure (failed vehicles have the same follow-up profile as healthy ones).
+  - After the shift fixes, no sensor differs much between depots (max KS 0.07), but the test depot has a heavier usage
+    tail (q99 of ~128 usage sensors 15–60% higher). Only 54 test vehicles exceed the training maximum, and v9 flags 85% of them.
+  - 349 of 397 training failures are in the heavy-usage group (mean usage percentile > 0.75). A classifier trained only on
+    that group ranks it no better than the global ensemble (`heavy_group.py`: AUC 0.946 vs 0.948, AP 0.571 vs 0.584).
+  - Repair cost does not rise with usage (corr −0.13), and at equal failure probability the cost model predicts only
+    ~10–20% higher costs on test than on train, so there is no sign of a cost-model artefact from the shift fixes.
+  - Conclusion: the models are at the limit of what 397 labelled failures support; what remains is the leaderboard-tuned
+    budget level (v27/v28) and inspection count (v10/v24).
+
 - **Cost-model search (`cost_search.py`)**: ridge, ExtraTrees, RandomForest, smaller LGBM and deeper CatBoost
   regressors on the 397 failed vehicles. Only a 0.3 ridge blend helped in CV (RMSE 0.807 → 0.790, OOF cost −0.4%),
   but on test it moved predictions 5× more than on train (mean |Δ| 0.55 vs 0.11): linear extrapolation into the
