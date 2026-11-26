@@ -42,6 +42,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v30 | shape features in classifier **and** repair-cost model (cost RMSE 0.807 → 0.724; OOF cost −4.9%) | 1632 | **16,874.63** (best) |
 | v31 | v9 classifier + new repair-cost model (isolates the cost-model gain) | 1650 | pending |
 | v32 | v30 with risk ×7 (inspection count back toward v9's optimum ~1690) | 1696 | pending |
+| v33 | v30 inspections; budgets from tree + piecewise-linear spline cost blend on bounded shape features (cost RMSE 0.724 → 0.696, OOF cost −1.3%) | 1632 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
@@ -50,6 +51,14 @@ versions scale risk up instead of normalising the shift away.
 #- **Where v9's cost goes (calibrated scenario)**: inspection fees 30%, budget shortfall on failing vehicles 28%,
   budget overspend on failing vehicles 16%, missed failures 20%, overspend on healthy vehicles 5%. So 44% is
   repair-cost uncertainty, which is what v30 attacks.
+
+- **Structure search after v30**: no further histogram groups; four sets of lockstep columns
+  ({s002, s125, s169}, {s012, s120, s126, s128}, {s034, s071}, {s079, s144}). Through s012 they show that test s120
+  is rounded to 1000, and a rounding scan shows train s059/s061/s054 are coarser than test. These are hygiene-level
+  differences, not yet applied.
+- **Smooth cost model on bounded features (`cost_linear_shapes.py`, `budget_blend.py`)**: a spline ridge on histogram
+  shares alone matches the trees (RMSE 0.719–0.722) and cannot extrapolate (inputs in [0, 1]). Used for flags it
+  hurts (+1–2%, it mis-prices healthy vehicles); used **only for budgets** it helps (−1.0% to −1.4% across settings).
 
 ## Experiments that did not help
 
