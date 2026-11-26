@@ -41,6 +41,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v29 | v9 policy on an ensemble retrained with shape features from 5 more histogram groups (CV cost −3.3%) | 1663 | 17,687.55 |
 | v30 | shape features in classifier **and** repair-cost model (cost RMSE 0.807 → 0.724; OOF cost −4.9%) | 1632 | **16,874.63** (best) |
 | v31 | v9 classifier + new repair-cost model (isolates the cost-model gain) | 1650 | pending |
+| v32 | v30 with risk ×7 (inspection count back toward v9's optimum ~1690) | 1696 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
@@ -51,6 +52,11 @@ versions scale risk up instead of normalising the shift away.
   repair-cost uncertainty, which is what v30 attacks.
 
 ## Experiments that did not help
+
+- **After v30 (no CV gain, not used)**: repair-cost variants (shape-only features, CatBoost only, deeper or slower
+  boosting, usage-rate features, Huber loss) all within ±0.7% of v30 or worse (`cost_search2.py`); per-vehicle cost
+  spread with shape features +2% worse (`sigma_shapes.py`); classifier with usage rates, colsample 0.3 or 31 leaves
+  within noise or worse (`clf_search.py`).
 
 - **Leaderboard calibration after v27**: of nine scenarios (test risk ×1.5/3/6 × repair cost ×1/1.5/2), only
   "risk ×6, model costs correct" reproduces both v9 (implied public share 0.32) and v27's gap (predicted +609, observed +629).
