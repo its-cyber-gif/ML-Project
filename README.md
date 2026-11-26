@@ -39,12 +39,18 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v27 | v9 flags, budgets ×0.7 (budget probe on the best flags) | 1674 | 18,293.22 |
 | v28 | v9 flags, budgets ×1.4 (not submitted: calibrated model predicts ~+700 worse) | 1674 | — |
 | v29 | v9 policy on an ensemble retrained with shape features from 5 more histogram groups (CV cost −3.3%) | 1663 | 17,687.55 |
+| v30 | shape features in classifier **and** repair-cost model (cost RMSE 0.807 → 0.724; OOF cost −4.9%) | 1632 | pending |
+| v31 | v9 classifier + new repair-cost model (isolates the cost-model gain) | 1650 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
 
-### Experiments that did not help
+#- **Where v9's cost goes (calibrated scenario)**: inspection fees 30%, budget shortfall on failing vehicles 28%,
+  budget overspend on failing vehicles 16%, missed failures 20%, overspend on healthy vehicles 5%. So 44% is
+  repair-cost uncertainty, which is what v30 attacks.
+
+## Experiments that did not help
 
 - **Leaderboard calibration after v27**: of nine scenarios (test risk ×1.5/3/6 × repair cost ×1/1.5/2), only
   "risk ×6, model costs correct" reproduces both v9 (implied public share 0.32) and v27's gap (predicted +609, observed +629).
