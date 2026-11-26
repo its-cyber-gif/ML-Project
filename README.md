@@ -36,14 +36,18 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v24 | v9 ranking, risk ×9 (inspection-count probe on the better v9 ranking) | 1882 | pending |
 | v25 | v9 ranking, risk ×12 | 2038 | pending |
 | v26 | v9 policy on 15 full-data classifiers (more bagging; 1663/1674 flags shared with v9) | 1676 | pending |
-| v27 | v9 flags, budgets ×0.7 (budget probe on the best flags) | 1674 | pending |
-| v28 | v9 flags, budgets ×1.4 | 1674 | pending |
+| v27 | v9 flags, budgets ×0.7 (budget probe on the best flags) | 1674 | 18,293.22 |
+| v28 | v9 flags, budgets ×1.4 (not submitted: calibrated model predicts ~+700 worse) | 1674 | — |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
 
 ### Experiments that did not help
+
+- **Leaderboard calibration after v27**: of nine scenarios (test risk ×1.5/3/6 × repair cost ×1/1.5/2), only
+  "risk ×6, model costs correct" reproduces both v9 (implied public share 0.32) and v27's gap (predicted +609, observed +629).
+  Under that scenario v9's settings are already the Bayes-optimal decision, and budgets ×1.2 / ×1.4 would cost about +230 / +730.
 
 - **Deep-dive checks (no leak or bug found)**:
   - Row order / ids carry no signal (AUC 0.50); only 3 test rows duplicate a train row; `followup_days` is not
