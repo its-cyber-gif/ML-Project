@@ -32,7 +32,9 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v18 | v14 policy, only 1450 inspections | 1450 | pending |
 | v19 | v14 policy, 1950 inspections | 1950 | pending |
 | v20 | v14 flags, homoscedastic budgets (tests the sigma model) | 1692 | pending |
-| v21 | v9 flags + v14 budgets (isolates the budget model) | 1674 | pending |
+| v21 | v9 flags + v14 budgets (isolates the budget model) | 1674 | 17,677.09 |
+| v24 | v9 ranking, risk ×9 (inspection-count probe on the better v9 ranking) | 1882 | pending |
+| v25 | v9 ranking, risk ×12 | 2038 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
