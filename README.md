@@ -39,7 +39,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v27 | v9 flags, budgets ×0.7 (budget probe on the best flags) | 1674 | 18,293.22 |
 | v28 | v9 flags, budgets ×1.4 (not submitted: calibrated model predicts ~+700 worse) | 1674 | — |
 | v29 | v9 policy on an ensemble retrained with shape features from 5 more histogram groups (CV cost −3.3%) | 1663 | 17,687.55 |
-| v30 | shape features in classifier **and** repair-cost model (cost RMSE 0.807 → 0.724; OOF cost −4.9%) | 1632 | pending |
+| v30 | shape features in classifier **and** repair-cost model (cost RMSE 0.807 → 0.724; OOF cost −4.9%) | 1632 | **16,874.63** (best) |
 | v31 | v9 classifier + new repair-cost model (isolates the cost-model gain) | 1650 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
