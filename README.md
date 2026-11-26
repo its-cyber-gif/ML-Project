@@ -35,12 +35,22 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v21 | v9 flags + v14 budgets (isolates the budget model) | 1674 | 17,677.09 |
 | v24 | v9 ranking, risk ×9 (inspection-count probe on the better v9 ranking) | 1882 | pending |
 | v25 | v9 ranking, risk ×12 | 2038 | pending |
+| v26 | v9 policy on 15 full-data classifiers (more bagging; 1663/1674 flags shared with v9) | 1676 | pending |
+| v27 | v9 flags, budgets ×0.7 (budget probe on the best flags) | 1674 | pending |
+| v28 | v9 flags, budgets ×1.4 | 1674 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
 versions scale risk up instead of normalising the shift away.
 
 ### Experiments that did not help
+
+- **Cost-model search (`cost_search.py`)**: ridge, ExtraTrees, RandomForest, smaller LGBM and deeper CatBoost
+  regressors on the 397 failed vehicles. Only a 0.3 ridge blend helped in CV (RMSE 0.807 → 0.790, OOF cost −0.4%),
+  but on test it moved predictions 5× more than on train (mean |Δ| 0.55 vs 0.11): linear extrapolation into the
+  test depot's heavier usage, so it was rejected.
+- **Headroom check**: on OOF, cost-model residuals ×0.75 would cut cost ~8%; classifier logits ±0.5 toward the truth ~19%.
+  Tuning and model swaps so far moved cost by ≤1%, so further gains have to come from leaderboard-validated global settings.
 - `logit_model.py`: logistic regression on log1p sensors (AUC 0.985) to extrapolate past the
   training range. Blending it into the ensemble raised OOF cost (0.845–0.863 vs 0.838), and it
   predicted the same test risk level as the trees, so it is not used.
