@@ -46,7 +46,8 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v34 | v30 inspections; budgets from the smooth (spline) cost model alone | 1632 | **16,332.50** (best) |
 | v35 | v33 budgets on v32's inspections (risk ×7) | 1696 | pending |
 | v36 | v34 inspections; budgets from smooth cost model + interactions of the top-8 shape features, clipped, capped at 8000 (OOF cost 43,843 → 41,961, −4.3%) | 1632 | 17,000.26 (worse than v34: interactions do not transfer) |
-| v37 | v36 budgets on v32's inspections (risk ×7) | 1696 | pending |
+| v37 | v36 budgets on v32's inspections (risk ×7) | 1696 | not recommended (built on v36 budgets) |
+| v38 | cost-weighted failure ranking (failures weighted by (cost/mean)^0.5, s002/s125/s169 dropped) + v34 budgets; 80 of 1,632 inspections changed (OOF −0.9% vs v34 setup) | 1632 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
@@ -73,6 +74,16 @@ versions scale risk up instead of normalising the shift away.
   (RMSE 0.708). Kernel ridge (RBF) and more spline knots were worse.
 - **Budget cap at 8000**: the largest repair cost in training (two vehicles sit exactly there). Budgets above it can
   only add overspend; capping improves OOF cost slightly for every budget model.
+
+- **v36 post-mortem**: interaction budgets were −4.3% in CV and passed the mean-shift check, but scored +668 on the
+  leaderboard. Test budgets moved only ±20% (q10–q90 ratio 0.78–1.22), so the public score is very sensitive to the
+  budgets of a few expensive failures. Products of standardised features also amplify depot differences that an
+  average-shift check cannot see. Budget-model changes now need a much larger CV margin before submission.
+- **s002/s125/s169**: Pearson 1.0 in train comes from a few values up to 2.7e10; Spearman is 0.15–0.20 in both depots,
+  and the classifier ranks them 209th–236th of 251 by gain. Dropped in v38, but this is not a material leak.
+- **Cost-weighted failure model (`cost_weighted_clf.py`)**: weighting failures by (cost/mean)^k turns corr(p, cost | fail)
+  from −0.05 to +0.07. With v34 budgets: LightGBM −4.0% (k = 0.25–0.5), CatBoost −1.8%, LightGBM + CatBoost −1.8%
+  (k = 0.5); k = 1 overshoots.
 
 ## Experiments that did not help
 

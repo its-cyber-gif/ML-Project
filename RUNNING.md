@@ -12,10 +12,16 @@ Put the competition files in `data/` (`train.csv`, `test.csv`). The zip already 
 `data/` and `oof/` (saved model predictions), so the last step below runs on its own in
 under a minute.
 
-## Current best: v36 (and v37)
+## Current best: v34 (16,332.50)
 
 ```bash
-python make_v36_v37.py
+python make_v34_v35.py
+```
+
+v36 (interaction budgets) scored worse (17,000). v38 (cost-weighted ranking) is unscored:
+
+```bash
+python make_v38.py
 ```
 
 ## Full rebuild from scratch (about 30-40 minutes)
