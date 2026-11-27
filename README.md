@@ -45,6 +45,8 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v33 | v30 inspections; budgets from tree + piecewise-linear spline cost blend on bounded shape features (cost RMSE 0.724 → 0.696, OOF cost −1.3%) | 1632 | 16,395.84 |
 | v34 | v30 inspections; budgets from the smooth (spline) cost model alone | 1632 | **16,332.50** (best) |
 | v35 | v33 budgets on v32's inspections (risk ×7) | 1696 | pending |
+| v36 | v34 inspections; budgets from smooth cost model + interactions of the top-8 shape features, clipped, capped at 8000 (OOF cost 43,843 → 41,961, −4.3%) | 1632 | pending |
+| v37 | v36 budgets on v32's inspections (risk ×7) | 1696 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
@@ -61,6 +63,16 @@ versions scale risk up instead of normalising the shift away.
 - **Smooth cost model on bounded features (`cost_linear_shapes.py`, `budget_blend.py`)**: a spline ridge on histogram
   shares alone matches the trees (RMSE 0.719–0.722) and cannot extrapolate (inputs in [0, 1]). Used for flags it
   hurts (+1–2%, it mis-prices healthy vehicles); used **only for budgets** it helps (−1.0% to −1.4% across settings).
+
+- **Smooth failure model (`smooth_clf.py`)**: spline logistic on bounded shape features alone is far weaker
+  (AUC 0.965 vs 0.988) and blending it into the tree ensemble raises OOF cost 6–20%. Failure needs raw usage levels;
+  the smooth approach helps budgets only.
+- **Interactions in the smooth cost model (`smooth_cost2.py`, `smooth_cost3.py`)**: pairwise products of the 8–25
+  shape features most correlated with log cost. Overall RMSE barely changes, but expensive failures get higher budgets
+  (OOF shortfall on failing vehicles 13,915 → ~11,600). Every variant is 2–4.6% better than v34; top-8 is kept
+  (RMSE 0.708). Kernel ridge (RBF) and more spline knots were worse.
+- **Budget cap at 8000**: the largest repair cost in training (two vehicles sit exactly there). Budgets above it can
+  only add overspend; capping improves OOF cost slightly for every budget model.
 
 ## Experiments that did not help
 
