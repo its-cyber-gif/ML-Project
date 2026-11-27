@@ -43,6 +43,8 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v31 | v9 classifier + new repair-cost model (isolates the cost-model gain) | 1650 | pending |
 | v32 | v30 with risk ×7 (inspection count back toward v9's optimum ~1690) | 1696 | pending |
 | v33 | v30 inspections; budgets from tree + piecewise-linear spline cost blend on bounded shape features (cost RMSE 0.724 → 0.696, OOF cost −1.3%) | 1632 | **16,395.84** (best) |
+| v34 | v30 inspections; budgets from the smooth (spline) cost model alone | 1632 | pending |
+| v35 | v33 budgets on v32's inspections (risk ×7) | 1696 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later
