@@ -204,3 +204,16 @@ The project evolved through six broad steps:
 6. Testing smooth cost models, feature interactions, and cost-weighted failure ranking.
 
 The strongest documented public leaderboard result is **v34 (16,332.50)**. Later experiments explored whether cost-model interactions and cost-aware failure ranking could improve further, but v36's public result was worse and v38's score was pending in the supplied records.
+
+
+## Version ownership / contributor attribution
+
+The following contributors worked on these versions:
+
+| Contributor | Versions worked on |
+|---|---|
+| **Keshav** | v7, v15, v16–v23, v32, v33, v38 |
+| **Madhav** | v8, v9, v12, v13, v29, v30–v31, v36–v37 |
+| **Harsh** | v10–v11, v14, v24–v25, v26–v28, v34–v35 |
+
+This attribution records the version ownership provided by the project team.
