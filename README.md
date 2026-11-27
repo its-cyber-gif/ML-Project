@@ -47,7 +47,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v35 | v33 budgets on v32's inspections (risk ×7) | 1696 | pending |
 | v36 | v34 inspections; budgets from smooth cost model + interactions of the top-8 shape features, clipped, capped at 8000 (OOF cost 43,843 → 41,961, −4.3%) | 1632 | 17,000.26 (worse than v34: interactions do not transfer) |
 | v37 | v36 budgets on v32's inspections (risk ×7) | 1696 | not recommended (built on v36 budgets) |
-| v38 | cost-weighted failure ranking (failures weighted by (cost/mean)^0.5, s002/s125/s169 dropped) + v34 budgets; 80 of 1,632 inspections changed (OOF −0.9% vs v34 setup) | 1632 | pending |
+| v38 | cost-weighted failure ranking (failures weighted by (cost/mean)^0.5, s002/s125/s169 dropped) + v34 budgets; 80 of 1,632 inspections changed (OOF −0.9% vs v34 setup) | 1632 | 16,444.49 (+112 vs v34: within noise, no gain) |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
 v6 showed that the heavier-usage test vehicles really do fail more, so later

@@ -18,7 +18,7 @@ under a minute.
 python make_v34_v35.py
 ```
 
-v36 (interaction budgets) scored worse (17,000). v38 (cost-weighted ranking) is unscored:
+v36 (interaction budgets) scored worse (17,000). v38 (cost-weighted ranking) scored 16,444 (no gain):
 
 ```bash
 python make_v38.py
