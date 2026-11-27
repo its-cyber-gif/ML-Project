@@ -45,7 +45,7 @@ Run it: put the Kaggle CSVs in `data/`, then `python oof_models.py cost w` follo
 | v33 | v30 inspections; budgets from tree + piecewise-linear spline cost blend on bounded shape features (cost RMSE 0.724 → 0.696, OOF cost −1.3%) | 1632 | 16,395.84 |
 | v34 | v30 inspections; budgets from the smooth (spline) cost model alone | 1632 | **16,332.50** (best) |
 | v35 | v33 budgets on v32's inspections (risk ×7) | 1696 | pending |
-| v36 | v34 inspections; budgets from smooth cost model + interactions of the top-8 shape features, clipped, capped at 8000 (OOF cost 43,843 → 41,961, −4.3%) | 1632 | pending |
+| v36 | v34 inspections; budgets from smooth cost model + interactions of the top-8 shape features, clipped, capped at 8000 (OOF cost 43,843 → 41,961, −4.3%) | 1632 | 17,000.26 (worse than v34: interactions do not transfer) |
 | v37 | v36 budgets on v32's inspections (risk ×7) | 1696 | pending |
 | v23 | 1800 inspections, budgets ×0.9 | 1800 | pending |
 
